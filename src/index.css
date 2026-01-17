@@ -2,12 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-/* App-wide styles */
+/* Global base styles */
 html,
-body,
-#root {
-  height: 100%;
-}
 body {
-  @apply bg-gray-50 text-gray-800;
+  min-height: 100%;
 }
+
+body {
+  @apply bg-slate-50 text-slate-800;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
