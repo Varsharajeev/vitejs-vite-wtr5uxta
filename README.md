@@ -1,3 +1,6 @@
+Deployed website link:
+https://contract-management-gamma.vercel.app/
+
 Contract Management Platform (Frontend)
 A frontend-only Contract Management Platform built with React, TypeScript, Vite, Tailwind CSS, and Zustand.
 This project focuses on clean frontend architecture, clear UX flow, and practical state management. It demonstrates how real-world contract workflows can be handled entirely on the frontend while remaining easy to extend into a full production system
