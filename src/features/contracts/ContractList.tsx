@@ -28,105 +28,79 @@ export default function ContractList() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-semibold">Contracts</h1>
-          <div className="text-sm text-gray-500">List and manage contracts</div>
+          <h3 className="text-lg font-bold text-slate-800">Contracts</h3>
+          <div className="text-sm text-slate-500 mt-1">List and manage contracts</div>
         </div>
         <Link
           to="/contracts/new"
-          className="px-3 py-1 rounded bg-indigo-600 text-white"
+          className="px-5 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium hover:from-blue-600 hover:to-blue-700 shadow-md hover:shadow-lg transition-all"
         >
           New Contract
         </Link>
       </div>
 
-      <div className="bg-white p-4 rounded shadow-sm">
-        <div className="mb-3 flex gap-2">
-          <button
-            onClick={() => setFilter('All')}
-            className={`px-2 py-1 rounded ${
-              filter === 'All' ? 'bg-indigo-50 text-indigo-600' : 'bg-gray-50'
-            }`}
-          >
-            All
-          </button>
-          <button
-            onClick={() => setFilter('Active')}
-            className={`px-2 py-1 rounded ${
-              filter === 'Active'
-                ? 'bg-indigo-50 text-indigo-600'
-                : 'bg-gray-50'
-            }`}
-          >
-            Active
-          </button>
-          <button
-            onClick={() => setFilter('Pending')}
-            className={`px-2 py-1 rounded ${
-              filter === 'Pending'
-                ? 'bg-indigo-50 text-indigo-600'
-                : 'bg-gray-50'
-            }`}
-          >
-            Pending
-          </button>
-          <button
-            onClick={() => setFilter('Signed')}
-            className={`px-2 py-1 rounded ${
-              filter === 'Signed'
-                ? 'bg-indigo-50 text-indigo-600'
-                : 'bg-gray-50'
-            }`}
-          >
-            Signed
-          </button>
+      <div className="space-y-4">
+        <div className="flex gap-2 pb-2">
+          {['All', 'Active', 'Pending', 'Signed'].map((f) => (
+            <button
+              key={f}
+              onClick={() => setFilter(f as any)}
+              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                filter === f
+                  ? 'bg-blue-100 text-blue-700 border border-blue-300 shadow-sm'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200'
+              }`}
+            >
+              {f}
+            </button>
+          ))}
         </div>
 
-        <table className="w-full text-left">
-          <thead>
-            <tr className="text-sm text-gray-500">
-              <th className="py-2">Name</th>
-              <th>Blueprint</th>
-              <th>Status</th>
-              <th>Created</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {contracts.filter(matches).map((c) => (
-              <tr key={c.id} className="border-t">
-                <td className="py-2">
-                  <Link to={`/contracts/${c.id}`} className="text-indigo-600">
-                    {c.name}
-                  </Link>
-                </td>
-                <td>{c.blueprintName}</td>
-                <td>
-                  <StatusBadge status={c.status} />
-                </td>
-                <td>{new Date(c.createdAt).toLocaleDateString()}</td>
-                <td>
-                  <div className="flex gap-2">
-                    <Link
-                      to={`/contracts/${c.id}`}
-                      className="px-2 py-1 rounded bg-gray-100"
-                    >
-                      View
-                    </Link>
-                  </div>
-                </td>
-              </tr>
-            ))}
-            {contracts.filter(matches).length === 0 && (
-              <tr>
-                <td colSpan={5} className="py-4 text-gray-500">
-                  No contracts
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+        {contracts.filter(matches).length === 0 ? (
+          <div className="text-center py-12">
+            <div className="text-slate-500">No contracts found</div>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm">
+              <thead>
+                <tr className="border-b border-blue-100 bg-blue-50/50">
+                  <th className="px-4 py-3 font-semibold text-slate-700">Name</th>
+                  <th className="px-4 py-3 font-semibold text-slate-700">Blueprint</th>
+                  <th className="px-4 py-3 font-semibold text-slate-700">Status</th>
+                  <th className="px-4 py-3 font-semibold text-slate-700">Created</th>
+                  <th className="px-4 py-3 font-semibold text-slate-700">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {contracts.filter(matches).map((c) => (
+                  <tr key={c.id} className="border-b border-blue-50 hover:bg-blue-50/50 transition-colors">
+                    <td className="px-4 py-3">
+                      <Link to={`/contracts/${c.id}`} className="text-blue-600 font-medium hover:text-blue-700 hover:underline">
+                        {c.name}
+                      </Link>
+                    </td>
+                    <td className="px-4 py-3 text-slate-600">{c.blueprintName}</td>
+                    <td className="px-4 py-3">
+                      <StatusBadge status={c.status} />
+                    </td>
+                    <td className="px-4 py-3 text-slate-600">{new Date(c.createdAt).toLocaleDateString()}</td>
+                    <td className="px-4 py-3">
+                      <Link
+                        to={`/contracts/${c.id}`}
+                        className="px-3 py-1 rounded-lg bg-blue-100 text-blue-700 hover:bg-blue-200 font-medium transition-colors text-xs"
+                      >
+                        View
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );

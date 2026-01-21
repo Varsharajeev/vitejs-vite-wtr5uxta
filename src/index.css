@@ -1,16 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Global base styles */
 html,
 body {
   min-height: 100%;
+  font-family: 'Inter', sans-serif;
 }
 
 body {
-  @apply bg-slate-50 text-slate-800;
+  @apply bg-gradient-to-br from-blue-50 via-white to-indigo-50 text-slate-700;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
 }
 
